@@ -14,9 +14,10 @@ HF links.
 ## Contents
 - **[`LEADERBOARD.md`](https://github.com/cnygaard/glq/blob/main/LEADERBOARD.md)** —
   generated from the records here, but kept in the
-  [glq repo](https://github.com/cnygaard/glq): the weighted **% -of-bf16 quality
-  index** across all bases, plus a per-base comparison table (every quant method vs
-  that base's bf16).
+  [glq repo](https://github.com/cnygaard/glq). It follows the
+  [GLQ collections on Hugging Face](https://huggingface.co/xv0y5ncu/collections):
+  the recommended checkpoints first, then one section per model family, each with one
+  row per (model, GPU) and the bf16 / NVFP4 builds of the same base as reference rows.
 - **`records/<base_model>/<model>.jsonl`** — append-only JSONL, one `BenchRecord`
   per line. Keyed by base model so every quant (GLQ / NVFP4 / GPTQ / AWQ / bf16)
   of a base sits together and compares against the shared bf16 baseline.
