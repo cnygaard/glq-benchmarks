@@ -12,9 +12,12 @@ model, **GPU memory at load**, **tokens/sec**, base/parent model, quant method, 
 HF links.
 
 ## Contents
-- **[`LEADERBOARD.md`](LEADERBOARD.md)** — auto-generated: the weighted **% -of-bf16
-  quality index** across all bases, plus a per-base comparison table (every quant
-  method vs that base's bf16). Regenerate with `glq-bench leaderboard`.
+- **[`LEADERBOARD.md`](https://github.com/cnygaard/glq/blob/main/LEADERBOARD.md)** —
+  generated from the records here, but kept in the
+  [glq repo](https://github.com/cnygaard/glq). It follows the
+  [GLQ collections on Hugging Face](https://huggingface.co/xv0y5ncu/collections):
+  the recommended checkpoints first, then one section per model family, each with one
+  row per (model, GPU) and the bf16 / NVFP4 builds of the same base as reference rows.
 - **`records/<base_model>/<model>.jsonl`** — append-only JSONL, one `BenchRecord`
   per line. Keyed by base model so every quant (GLQ / NVFP4 / GPTQ / AWQ / bf16)
   of a base sits together and compares against the shared bf16 baseline.
@@ -37,10 +40,14 @@ glq-bench run --model <hf-id-or-dir> --tasks mmlu_pro,aime_2026,throughput --pus
 # the bf16 baseline of the same base is required for the % -of-bf16 index:
 glq-bench run --model <base-bf16-id> --tasks mmlu_pro,aime_2026 --quant none --push
 
-# regenerate the leaderboard + plots from all records
-glq-bench leaderboard --out LEADERBOARD.md
+# regenerate the plots from all records
 glq-bench plot --kind all --out plots/
 ```
+
+The leaderboard lives in the glq repo. Regenerate it from the glq repo root with
+`glq-bench leaderboard --out LEADERBOARD.md`, not inside a checkout of this repo:
+`glq-bench run --push` commits with `git add -A`, so a copy generated here would be
+pushed back.
 
 ## Caveats
 Numbers are reported **as measured in their run** — sample sizes (`n=30`/`n=60` for
